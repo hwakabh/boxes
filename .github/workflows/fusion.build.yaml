@@ -1,0 +1,76 @@
+name: Build Boxes
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+env:
+  FUSION_INSTALLER_FILENAME: "VMware-Fusion-13.6.2-24409261_universal.dmg"
+  GDRIVE_API_KEY: ${{ secrets.GDRIVE_API_KEY }}
+  GDRIVE_FILE_ID: ${{ secrets.GDRIVE_FILE_ID }}
+
+jobs:
+  # build *.fusion.pkr.hcl for amd64 + arm64
+  fusion:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Download fusion installer
+        run: |
+          wget -q -O ${{ env.FUSION_INSTALLER_FILENAME }} "https://www.googleapis.com/drive/v3/files/${{ env.GDRIVE_FILE_ID }}?alt=media&key=${{ env.GDRIVE_API_KEY }}"
+          md5 ${{ env.FUSION_INSTALLER_FILENAME }}
+
+      - name: Mount and install
+        run: |
+          hdiutil attach ${{ env.FUSION_INSTALLER_FILENAME }}
+          sudo cp -R /Volumes/VMware\ Fusion/VMware\ Fusion.app /Applications
+          echo "Fusion installed."
+
+      - name: Clean up
+        run: |
+          hdiutil unmount /Volumes/VMware\ Fusion/
+          rm -f ${{ env.FUSION_INSTALLER_FILENAME }}
+
+      - name: Test vmcli
+        run: |
+          ls -al /opt/homebrew/bin
+          /Applications/VMware\ Fusion.app/Contents/Library/vmcli -v
+
+      - name: Test vmrun
+        run: /Applications/VMware\ Fusion.app/Contents/Library/vmrun
+
+
+      # https://github.com/hashicorp/setup-packer
+      - name: Setup packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: ${{ env.PRODUCT_VERSION }}
+
+      # For debug
+      - name: Test buildings with packer
+        run: |
+          cd alpine/
+          packer init .
+          echo ""
+          echo ""
+          packer validate .
+          echo ""
+          echo ""
+          PACKER_LOG=1 packer build -only source.vmware-iso.alpine_arm64 .
+
+
+
+
+  # vbox:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - name: Install Fusion
+  #       run: brew install virtualbox
+
+  #     - name: Test vboxmanage
+  #       run: vboxmanage -v

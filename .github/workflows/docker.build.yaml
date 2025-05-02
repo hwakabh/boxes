@@ -1,0 +1,21 @@
+name: Build Boxes
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  # build *.fusion.pkr.hcl for amd64 + arm64
+  docker:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # https://github.com/hashicorp/setup-packer
+      - name: Setup packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: ${{ env.PRODUCT_VERSION }}

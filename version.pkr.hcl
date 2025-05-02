@@ -1,5 +1,5 @@
 packer {
-  required_version = "1.11.2"
+  required_version = ">= 1.7.0"
   required_plugins {
     // builder/docker, post-processor/docker-tag
     docker = {

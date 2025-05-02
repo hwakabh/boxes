@@ -1,29 +1,29 @@
 source "vmware-iso" "alpine_arm64" {
   // https://developer.hashicorp.com/packer/integrations/hashicorp/vmware/latest/components/builder/iso
   // OS source image
-  iso_url = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso"
+  iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso"
   iso_checksum = "file:https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso.sha512"
 
   // virtual hardware configurations
   guest_os_type = "arm-other-64"
-  version = "21"
+  version       = "21"
   vmx_data = {
-    "firmware"     = "efi"
-    "architecture" = "arm-other-64"
+    "firmware"         = "efi"
+    "architecture"     = "arm-other-64"
     "usb_xhci.present" = "TRUE" # for Packer to type text
   }
 
   // VM Specs
-  vm_name = "alpine-arm64"
-  cpus = 1
-  memory = 2048
+  vm_name              = "alpine-arm64"
+  cpus                 = 1
+  memory               = 2048
   network_adapter_type = "vmxnet3"
-  disk_adapter_type = "sata"
-  disk_size = 4000
-  cdrom_adapter_type = "sata"
+  disk_adapter_type    = "sata"
+  disk_size            = 4000
+  cdrom_adapter_type   = "sata"
 
   // After VM starting
-  headless = true
+  headless  = true
   boot_wait = "15s"
   boot_command = [
     "root<enter><wait>",
@@ -40,7 +40,7 @@ source "vmware-iso" "alpine_arm64" {
   // Credentials used by Packer for initial setup before OS installs
   ssh_username = "root"
   ssh_password = "root"
-  ssh_timeout = "180s"
+  ssh_timeout  = "180s"
 
   // Once SSH connection from Packer established, provisioner will take over the setup-alpine
 

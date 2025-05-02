@@ -51,6 +51,19 @@ jobs:
         with:
           version: ${{ env.PRODUCT_VERSION }}
 
+      # For debug
+      - name: Test buildings with packer
+        run: |
+          cd alpine/
+          packer init .
+          echo ""
+          echo ""
+          packer validate .
+          echo ""
+          echo ""
+          PACKER_LOG=1 packer build -only source.vmware-iso.alpine_arm64 .
+
+
 
 
   # vbox:

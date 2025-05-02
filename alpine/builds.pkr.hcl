@@ -25,7 +25,7 @@ build {
   ]
 
   provisioner "file" {
-    source = "../.share/vagrant.pub"
+    source      = "../.share/vagrant.pub"
     destination = "/tmp/vagrant.pub"
   }
   provisioner "shell" {
@@ -33,7 +33,7 @@ build {
   }
 
   provisioner "file" {
-    source = "./scripts/answerfile"
+    source      = "./scripts/answerfile"
     destination = "/tmp/answerfile"
   }
   provisioner "shell" {
@@ -48,7 +48,7 @@ build {
     post-processor "vagrant" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
       provider_override = "vmware"
-      output = "alpine_arm64.fusion.box"
+      output            = "alpine_arm64.fusion.box"
     }
     # post-processor "vagrant-registry" {
     #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry

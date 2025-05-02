@@ -21,7 +21,8 @@ packer {
 
 build {
   sources = [
-    "source.vmware-iso.alpine_arm64"
+    "source.vmware-iso.alpine_arm64",
+    "source.docker.alpine_arm64"
   ]
 
   provisioner "file" {
@@ -44,11 +45,22 @@ build {
     ]
   }
 
+  post-processor "docker-tag" {
+    // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
+    repository = "hello-packer"
+    tags       = ["latest"]
+  }
+
+
   post-processors {
     post-processor "vagrant" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
       provider_override = "vmware"
       output            = "alpine_arm64.fusion.box"
+      # TODO: override for docker
+      # provider_override = "docker"
+      # output = "alpine_arm64.docker.box"
+
     }
     # post-processor "vagrant-registry" {
     #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry

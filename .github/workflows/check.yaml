@@ -1,0 +1,32 @@
+name: Packer Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  PRODUCT_VERSION: "latest"
+
+jobs:
+  check-packer:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # https://github.com/hashicorp/setup-packer
+      - name: Setup packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: ${{ env.PRODUCT_VERSION }}
+
+      # TODO: init with each image (with path-filter?)
+      - name: Initialize Packer
+        run: |
+          packer version
+          packer init ./version.pkr.hcl
+
+      - name: Run linting for templates
+        run: |
+          packer fmt -recursive -diff -check .
+          # packer validate  .

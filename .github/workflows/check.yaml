@@ -20,6 +20,7 @@ jobs:
         with:
           version: ${{ env.PRODUCT_VERSION }}
 
+      # TODO: init with each image (with path-filter?)
       - name: Initialize Packer
         run: |
           packer version

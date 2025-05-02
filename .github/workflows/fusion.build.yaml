@@ -36,15 +36,6 @@ jobs:
           hdiutil unmount /Volumes/VMware\ Fusion/
           rm -f ${{ env.FUSION_INSTALLER_FILENAME }}
 
-      - name: Test vmcli
-        run: |
-          ls -al /opt/homebrew/bin
-          /Applications/VMware\ Fusion.app/Contents/Library/vmcli -v
-
-      - name: Test vmrun
-        run: /Applications/VMware\ Fusion.app/Contents/Library/vmrun
-
-
       # https://github.com/hashicorp/setup-packer
       - name: Setup packer
         uses: hashicorp/setup-packer@main

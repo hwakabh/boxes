@@ -58,16 +58,14 @@ build {
       output            = "alpine_arm64.fusion.box"
       only              = ["vmware-iso.alpine_arm64"]
     }
-    # post-processor "vagrant-registry" {
-    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
-    #   client_id = "from env"
-    #   client_secret = "from env"
-    #   box_tag = "hwakabh/alpine"
-    #   architecture = "arm64"
-    #   version = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
-
-    #   keep_input_artifact = false
-    # }
+    post-processor "vagrant-registry" {
+      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
+      client_id = var.VAGRANT_HCP_CLIENT_ID
+      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag = "hwakabh/alpine"
+      architecture = "arm64"
+      version = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+    }
   }
 
   // For Docker Boxes
@@ -87,16 +85,28 @@ build {
       output            = "alpine_arm64.docker.box"
       only              = ["docker.alpine_arm64"]
     }
-    # post-processor "vagrant-registry" {
-    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
-    #   client_id = "from env"
-    #   client_secret = "from env"
-    #   box_tag = "hwakabh/alpine"
-    #   architecture = "arm64"
-    #   version = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
-
-    #   keep_input_artifact = false
-    # }
+    post-processor "vagrant-registry" {
+      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
+      client_id = var.VAGRANT_HCP_CLIENT_ID
+      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag = "hwakabh/alpine"
+      architecture = "arm64"
+      version = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+    }
   }
 
+  // required HCP_PROJECT_ID, HCP_PACKER_CLIENT_ID & HCP_PACKER_CLIENT_SECRET
+  // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
+  hcp_packer_registry {
+    bucket_name = "alpine"
+    description = "metadata of builds with alpine by Packer"
+    bucket_labels = {
+      "owner" = "hwakabh"
+      "build_on" = "github-action"
+    }
+    build_labels = {
+      "build-time"   = timestamp()
+      "build-source" = basename(path.cwd)
+    }
+  }
 }

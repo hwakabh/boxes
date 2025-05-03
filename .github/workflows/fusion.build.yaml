@@ -20,39 +20,39 @@ jobs:
         uses: actions/checkout@v4
 
 
-      - name: Download fusion installer
-        run: |
-          wget -q -O ${{ env.FUSION_INSTALLER_FILENAME }} "https://www.googleapis.com/drive/v3/files/${{ env.GDRIVE_FILE_ID }}?alt=media&key=${{ env.GDRIVE_API_KEY }}"
-          md5 ${{ env.FUSION_INSTALLER_FILENAME }}
+      # - name: Download fusion installer
+      #   run: |
+      #     wget -q -O ${{ env.FUSION_INSTALLER_FILENAME }} "https://www.googleapis.com/drive/v3/files/${{ env.GDRIVE_FILE_ID }}?alt=media&key=${{ env.GDRIVE_API_KEY }}"
+      #     md5 ${{ env.FUSION_INSTALLER_FILENAME }}
 
-      - name: Mount and install
-        run: |
-          hdiutil attach ${{ env.FUSION_INSTALLER_FILENAME }}
-          sudo cp -R /Volumes/VMware\ Fusion/VMware\ Fusion.app /Applications
-          echo "Fusion installed."
+      # - name: Mount and install
+      #   run: |
+      #     hdiutil attach ${{ env.FUSION_INSTALLER_FILENAME }}
+      #     sudo cp -R /Volumes/VMware\ Fusion/VMware\ Fusion.app /Applications
+      #     echo "Fusion installed."
 
-      - name: Clean up
-        run: |
-          hdiutil unmount /Volumes/VMware\ Fusion/
-          rm -f ${{ env.FUSION_INSTALLER_FILENAME }}
+      # - name: Clean up
+      #   run: |
+      #     hdiutil unmount /Volumes/VMware\ Fusion/
+      #     rm -f ${{ env.FUSION_INSTALLER_FILENAME }}
 
-      # https://github.com/hashicorp/setup-packer
-      - name: Setup packer
-        uses: hashicorp/setup-packer@main
-        with:
-          version: ${{ env.PRODUCT_VERSION }}
+      # # https://github.com/hashicorp/setup-packer
+      # - name: Setup packer
+      #   uses: hashicorp/setup-packer@main
+      #   with:
+      #     version: ${{ env.PRODUCT_VERSION }}
 
-      # For debug
-      - name: Test buildings with packer
-        run: |
-          cd alpine/
-          packer init .
-          echo ""
-          echo ""
-          packer validate .
-          echo ""
-          echo ""
-          PACKER_LOG=1 packer build -only vmware-iso.alpine_arm64 .
+      # # For debug
+      # - name: Test buildings with packer
+      #   run: |
+      #     cd alpine/
+      #     packer init .
+      #     echo ""
+      #     echo ""
+      #     packer validate .
+      #     echo ""
+      #     echo ""
+      #     PACKER_LOG=1 packer build -only vmware-iso.alpine_arm64 .
 
   # for amd64 builds
   fusion-x86_64:

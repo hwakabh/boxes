@@ -21,8 +21,8 @@ build {
 
   post-processor "docker-tag" {
     // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
-    repository = "ghcr.io/hwakabh/distroless"
-    tags       = ["local"]
+    repository = "ghcr.io/hwakabh/distroless-debian"
+    tags       = ["box-arm64"]
   }
 
   post-processors {
@@ -31,17 +31,28 @@ build {
       provider_override = "docker"
       output            = "distroless_arm64.docker.box"
     }
+    post-processor "vagrant-registry" {
+      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
+      client_id     = var.VAGRANT_HCP_CLIENT_ID
+      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag       = "hwakabh/distroless-debian"
+      architecture  = "arm64"
+      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "distroless-debian", "0.0.1")
+    }
+  }
 
-    # post-processor "vagrant-registry" {
-    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
-    #   client_id = "from env"
-    #   client_secret = "from env"
-    #   box_tag = "hwakabh/distroless-debian"
-    #   architecture = "arm64"
-    #   version = lookup(jsondecode(file("../.release-please-manifest.json")), "distroless-debian", "0.0.1")
-
-    #   keep_input_artifact = false
-    # }
-
+  // required HCP_PROJECT_ID, HCP_PACKER_CLIENT_ID & HCP_PACKER_CLIENT_SECRET
+  // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
+  hcp_packer_registry {
+    bucket_name = "alpine"
+    description = "metadata of builds with alpine by Packer"
+    bucket_labels = {
+      "owner"    = "hwakabh"
+      "build_on" = "github-action"
+    }
+    build_labels = {
+      "build-time"   = timestamp()
+      "build-source" = basename(path.cwd)
+    }
   }
 }

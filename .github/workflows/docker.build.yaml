@@ -33,6 +33,12 @@ jobs:
 
       - name: Build Boxes with Packer
         working-directory: ${{ matrix.images }}
+        env:
+          HCP_PROJECT_ID: ${{ secrets.HCP_PROJECT_ID }}
+          HCP_CLIENT_ID: ${{ secrets.PACKER_HCP_CLIENT_ID }}
+          HCP_CLIENT_SECRET: ${{ secrets.PACKER_HCP_CLIENT_SECRET }}
+          VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
+          VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
         run: |
           PACKER_LOG=1 packer build -only docker.${{ matrix.images }}_arm64 .
 

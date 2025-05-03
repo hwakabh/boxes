@@ -44,8 +44,8 @@ build {
   // required HCP_PROJECT_ID, HCP_PACKER_CLIENT_ID & HCP_PACKER_CLIENT_SECRET
   // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
   hcp_packer_registry {
-    bucket_name = "alpine"
-    description = "metadata of builds with alpine by Packer"
+    bucket_name = "distroless-debian"
+    description = "metadata of builds with distroless-debian by Packer"
     bucket_labels = {
       "owner"    = "hwakabh"
       "build_on" = "github-action"

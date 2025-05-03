@@ -70,24 +70,24 @@ build {
 
   // For Docker Boxes
   post-processors {
-    # post-processor "docker-tag" {
-    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
-    #   repository = "ghcr.io/hwakabh/alpine"
-    #   tags       = ["box-arm64"]
-    #   only       = ["docker.alpine_arm64"]
-    # }
-    post-processor "docker-import" {
+    post-processor "docker-tag" {
+      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
       repository = "ghcr.io/hwakabh/alpine"
-      tag = "box-arm64"
+      tags       = ["box-arm64"]
+      only       = ["docker.alpine_arm64"]
     }
-    post-processor "docker-push" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-push
-      login          = true
-      login_server   = "ghcr.io"
-      login_username = "hwakabh"
-      login_password = var.GHCR_TOKEN
-      only           = ["docker.alpine_arm64"]
-    }
+    # post-processor "docker-import" {
+    #   repository = "ghcr.io/hwakabh/alpine"
+    #   tag = "box-arm64"
+    # }
+    # post-processor "docker-push" {
+    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-push
+    #   login          = true
+    #   login_server   = "ghcr.io"
+    #   login_username = "hwakabh"
+    #   login_password = var.GHCR_TOKEN
+    #   only           = ["docker.alpine_arm64"]
+    # }
   }
 
   post-processors {
@@ -109,18 +109,18 @@ build {
     }
   }
 
-  // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
-  // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
-  hcp_packer_registry {
-    bucket_name = "alpine"
-    description = "metadata of builds with alpine by Packer"
-    bucket_labels = {
-      "owner"    = "hwakabh"
-      "build_on" = "github-action"
-    }
-    build_labels = {
-      "build-time"   = timestamp()
-      "build-source" = basename(path.cwd)
-    }
-  }
+  # // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
+  # // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
+  # hcp_packer_registry {
+  #   bucket_name = "alpine"
+  #   description = "metadata of builds with alpine by Packer"
+  #   bucket_labels = {
+  #     "owner"    = "hwakabh"
+  #     "build_on" = "github-action"
+  #   }
+  #   build_labels = {
+  #     "build-time"   = timestamp()
+  #     "build-source" = basename(path.cwd)
+  #   }
+  # }
 }

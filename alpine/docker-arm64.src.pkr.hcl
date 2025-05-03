@@ -1,4 +1,5 @@
 source "docker" "alpine_arm64" {
-  image       = "alpine:latest"
-  export_path = "alpine_arm64.tar"
+  image = "alpine:latest"
+  # export_path = "alpine_arm64.tar"
+  commit = true
 }

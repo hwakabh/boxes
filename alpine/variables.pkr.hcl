@@ -12,9 +12,9 @@ variable "VAGRANT_HCP_CLIENT_SECRET" {
   default     = env("VAGRANT_HCP_CLIENT_SECRET")
 }
 
-variable "GHCR_TOKEN" {
-  type        = string
-  sensitive   = true
-  description = "GitHub PAT for pushing image"
-  default     = env("GITHUB_PAT")
-}
+# variable "GHCR_TOKEN" {
+#   type        = string
+#   sensitive   = true
+#   description = "GitHub PAT for pushing image"
+#   default     = env("GITHUB_PAT")
+# }

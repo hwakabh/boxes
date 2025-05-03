@@ -52,7 +52,7 @@ jobs:
           packer validate .
           echo ""
           echo ""
-          PACKER_LOG=1 packer build -only source.vmware-iso.alpine_arm64 .
+          PACKER_LOG=1 packer build -only vmware-iso.alpine_arm64 .
 
 
 

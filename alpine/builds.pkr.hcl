@@ -29,17 +29,17 @@ build {
   provisioner "file" {
     source      = "../.share/vagrant.pub"
     destination = "/tmp/vagrant.pub"
-    only = ["vmware-iso.alpine_arm64"]
+    only        = ["vmware-iso.alpine_arm64"]
   }
   provisioner "shell" {
     script = "./scripts/setup.sh"
-    only = ["vmware-iso.alpine_arm64"]
+    only   = ["vmware-iso.alpine_arm64"]
   }
 
   provisioner "file" {
     source      = "./scripts/answerfile"
     destination = "/tmp/answerfile"
-    only = ["vmware-iso.alpine_arm64"]
+    only        = ["vmware-iso.alpine_arm64"]
   }
   provisioner "shell" {
     inline = [
@@ -54,8 +54,8 @@ build {
     post-processor "vagrant" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
       provider_override = "vmware"
-      output = "alpine_arm64.fusion.box"
-      only = ["vmware-iso.alpine_arm64"]
+      output            = "alpine_arm64.fusion.box"
+      only              = ["vmware-iso.alpine_arm64"]
     }
     # post-processor "vagrant-registry" {
     #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
@@ -74,7 +74,7 @@ build {
     // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
     repository = "hello-packer"
     tags       = ["latest"]
-    only = ["docker.alpine_arm64"]
+    only       = ["docker.alpine_arm64"]
   }
 
   post-processors {
@@ -83,8 +83,8 @@ build {
     // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant#provider-specific-overrides
     post-processor "vagrant" {
       provider_override = "docker"
-      output = "alpine_arm64.docker.box"
-      only = ["docker.alpine_arm64"]
+      output            = "alpine_arm64.docker.box"
+      only              = ["docker.alpine_arm64"]
     }
     # post-processor "vagrant-registry" {
     #   // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry

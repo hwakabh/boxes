@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/hwakabh/boxes/compare/alpine-v0.2.0...alpine-v0.2.1) (2025-05-03)
+
+
+### Miscellaneous Chores
+
+* fixed conflicts. ([555ed9d](https://github.com/hwakabh/boxes/commit/555ed9da5c8ffa49c79685a6bbe1b0ae6494e100))
+
 ## [0.2.0](https://github.com/hwakabh/boxes/compare/alpine-v0.1.0...alpine-v0.2.0) (2025-05-03)
 
 

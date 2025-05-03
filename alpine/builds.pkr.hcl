@@ -70,11 +70,15 @@ build {
 
   // For Docker Boxes
   post-processors {
-    post-processor "docker-tag" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
+    # post-processor "docker-tag" {
+    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
+    #   repository = "ghcr.io/hwakabh/alpine"
+    #   tags       = ["box-arm64"]
+    #   only       = ["docker.alpine_arm64"]
+    # }
+    post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/alpine"
-      tags       = ["box-arm64"]
-      only       = ["docker.alpine_arm64"]
+      tag = "box-arm64"
     }
     post-processor "docker-push" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-push

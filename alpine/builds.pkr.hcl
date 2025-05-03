@@ -21,8 +21,8 @@ packer {
 
 build {
   sources = [
-    "source.vmware-iso.alpine_arm64",
-    "source.docker.alpine_arm64"
+    "source.vmware-iso.fusion_alpine_arm64",
+    "source.docker.docker_alpine_arm64"
   ]
 
   provisioner "file" {

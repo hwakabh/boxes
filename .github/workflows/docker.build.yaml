@@ -35,7 +35,7 @@ jobs:
       - name: Build Boxes with Packer
         working-directory: ${{ matrix.images }}
         run: |
-          PACKER_LOG=1 packer build -only docker.${{ matrix.images }}_arm64 .
+          PACKER_LOG=1 packer build -only docker.docker_${{ matrix.images }}_arm64 .
 
   # docker-x86_64:
   #   runs-on: ubuntu-24.04-arm # preview + required public repo

@@ -1,6 +1,4 @@
-source "vmware-iso" "alpine_arm64" {
-  name = "fusion_alpine_arm64"
-
+source "vmware-iso" "fusion_alpine_arm64" {
   // https://developer.hashicorp.com/packer/integrations/hashicorp/vmware/latest/components/builder/iso
   // OS source image
   iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso"

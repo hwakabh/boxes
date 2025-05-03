@@ -61,11 +61,11 @@ build {
     post-processor "vagrant" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
       override = {
-        "vmware-iso.alpine_arm64" = {
+        fusion_alpine_arm64 = {
           provider_override = "vmware"
           output = "alpine_arm64.fusion.box"
         }
-        "docker.alpine_arm64" = {
+        docker_alpine_arm64 = {
           provider_override = "docker"
           output = "alpine_arm64.docker.box"
         }

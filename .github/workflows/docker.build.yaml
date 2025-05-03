@@ -8,13 +8,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  strategy:
-    matrix:
-      images:
-      - alpine
-      - distroless-debian
   # build *.fusion.pkr.hcl for amd64 + arm64
   docker-aarch64:
+    strategy:
+      matrix:
+        images:
+        - alpine
+        - distroless-debian
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout

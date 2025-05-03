@@ -22,6 +22,7 @@ packer {
 build {
   sources = [
     "source.vmware-iso.alpine_arm64",
+    # "source.virtualbox.alpine_arm64",
     "source.docker.alpine_arm64"
   ]
 

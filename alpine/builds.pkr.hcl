@@ -28,17 +28,17 @@ build {
   provisioner "file" {
     source      = "../.share/vagrant.pub"
     destination = "/tmp/vagrant.pub"
-    only = ["vmware-iso.apline_arm64"]
+    only = ["vmware-iso.fusion_apline_arm64"]
   }
   provisioner "shell" {
     script = "./scripts/setup.sh"
-    only = ["vmware-iso.apline_arm64"]
+    only = ["vmware-iso.fusion_apline_arm64"]
   }
 
   provisioner "file" {
     source      = "./scripts/answerfile"
     destination = "/tmp/answerfile"
-    only = ["vmware-iso.apline_arm64"]
+    only = ["vmware-iso.fusion_apline_arm64"]
   }
   provisioner "shell" {
     inline = [
@@ -46,14 +46,14 @@ build {
       "echo 'password\npassword\ny\n' | setup-alpine -f /tmp/answerfile",
       "reboot"
     ]
-    only = ["vmware-iso.apline_arm64"]
+    only = ["vmware-iso.fusion_apline_arm64"]
   }
 
   post-processor "docker-tag" {
     // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
     repository = "hello-packer"
     tags       = ["latest"]
-    only = ["docker.alpine_arm64"]
+    only = ["docker.docker_alpine_arm64"]
   }
 
 

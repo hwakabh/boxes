@@ -60,11 +60,11 @@ build {
     }
     post-processor "vagrant-registry" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
-      client_id = var.VAGRANT_HCP_CLIENT_ID
+      client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
-      box_tag = "hwakabh/alpine"
-      architecture = "arm64"
-      version = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      box_tag       = "hwakabh/alpine"
+      architecture  = "arm64"
+      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
     }
   }
 
@@ -87,11 +87,11 @@ build {
     }
     post-processor "vagrant-registry" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
-      client_id = var.VAGRANT_HCP_CLIENT_ID
+      client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
-      box_tag = "hwakabh/alpine"
-      architecture = "arm64"
-      version = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      box_tag       = "hwakabh/alpine"
+      architecture  = "arm64"
+      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
     }
   }
 
@@ -101,7 +101,7 @@ build {
     bucket_name = "alpine"
     description = "metadata of builds with alpine by Packer"
     bucket_labels = {
-      "owner" = "hwakabh"
+      "owner"    = "hwakabh"
       "build_on" = "github-action"
     }
     build_labels = {

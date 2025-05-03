@@ -1,4 +1,4 @@
-name: Build Fusion Boxes
+name: Build VirtualBox Boxes
 
 on:
   push:

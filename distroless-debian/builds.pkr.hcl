@@ -21,8 +21,8 @@ build {
 
   post-processor "docker-tag" {
     // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
-    repository = "ghcr.io/hwakabh/distroless"
-    tags       = ["local"]
+    repository = "ghcr.io/hwakabh/distroless-debian"
+    tags       = ["box-arm64"]
   }
 
   post-processors {

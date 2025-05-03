@@ -73,8 +73,8 @@ build {
   // For Docker Boxes
   post-processor "docker-tag" {
     // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
-    repository = "hello-packer"
-    tags       = ["latest"]
+    repository = "ghcr.io/hwakabh/alpine"
+    tags       = ["box-arm64"]
     only       = ["docker.alpine_arm64"]
   }
 

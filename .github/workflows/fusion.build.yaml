@@ -1,4 +1,4 @@
-name: Build Boxes
+name: Build Fusion Boxes
 
 on:
   push:
@@ -12,8 +12,8 @@ env:
   GDRIVE_FILE_ID: ${{ secrets.GDRIVE_FILE_ID }}
 
 jobs:
-  # build *.fusion.pkr.hcl for amd64 + arm64
-  fusion:
+  # for arm64 builds
+  fusion-aarch64:
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -54,14 +54,8 @@ jobs:
           echo ""
           PACKER_LOG=1 packer build -only vmware-iso.alpine_arm64 .
 
-
-
-
-  # vbox:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - name: Install Fusion
-  #       run: brew install virtualbox
-
-  #     - name: Test vboxmanage
-  #       run: vboxmanage -v
+  # for amd64 builds
+  fusion-x86_64:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4

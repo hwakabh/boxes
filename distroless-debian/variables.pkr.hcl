@@ -11,3 +11,10 @@ variable "VAGRANT_HCP_CLIENT_SECRET" {
   description = "client_secret of HCP Vagrant service-principle for publishing box"
   default     = env("VAGRANT_HCP_CLIENT_SECRET")
 }
+
+variable "GHCR_TOKEN" {
+  type        = string
+  sensitive   = true
+  description = "GitHub PAT for pushing image"
+  default     = env("GITHUB_PAT")
+}

@@ -69,11 +69,21 @@ build {
   }
 
   // For Docker Boxes
-  post-processor "docker-tag" {
-    // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
-    repository = "ghcr.io/hwakabh/alpine"
-    tags       = ["box-arm64"]
-    only       = ["docker.alpine_arm64"]
+  post-processors {
+    post-processor "docker-tag" {
+      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
+      repository = "ghcr.io/hwakabh/alpine"
+      tags       = ["box-arm64"]
+      only       = ["docker.alpine_arm64"]
+    }
+    post-processor "docker-push" {
+      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-push
+      login          = true
+      login_server   = "ghcr.io"
+      login_username = "hwakabh"
+      login_password = var.GHCR_TOKEN
+      only           = ["docker.alpine_arm64"]
+    }
   }
 
   post-processors {
@@ -95,7 +105,7 @@ build {
     }
   }
 
-  // required HCP_PROJECT_ID, HCP_PACKER_CLIENT_ID & HCP_PACKER_CLIENT_SECRET
+  // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
   // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
   hcp_packer_registry {
     bucket_name = "alpine"

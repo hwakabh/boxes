@@ -5,5 +5,5 @@ source "docker" "distroless-debian_arm64" {
   changes = [
     "ENTRYPOINT /busybox/sh"
   ]
-  commit = true
+  export_path = "distroless-debian_arm64.tar"
 }

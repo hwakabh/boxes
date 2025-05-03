@@ -1,14 +1,20 @@
-name: Build Boxes
+name: Build Docker Boxes
 
 on:
-  push:
-    branches:
-      - 'main'
+  # push:
+  #   branches:
+  #     - 'main'
+  pull_request:
   workflow_dispatch:
 
 jobs:
+  strategy:
+    matrix:
+      images:
+      - alpine
+      - distroless-debian
   # build *.fusion.pkr.hcl for amd64 + arm64
-  docker:
+  docker-aarch64:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -19,3 +25,20 @@ jobs:
         uses: hashicorp/setup-packer@main
         with:
           version: ${{ env.PRODUCT_VERSION }}
+
+      - name: Initialize Packer and validate HCLs
+        working-directory: ${{ matrix.images }}
+        run: |
+          packer init .
+          packer validate .
+
+      - name: Build Boxes with Packer
+        working-directory: ${{ matrix.images }}
+        run: |
+          PACKER_LOG=1 packer build -only docker.${{ matrix.images }}_arm64 .
+
+  # docker-x86_64:
+  #   runs-on: ubuntu-24.04-arm # preview + required public repo
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4

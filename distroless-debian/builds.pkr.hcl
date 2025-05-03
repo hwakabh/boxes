@@ -17,7 +17,7 @@ build {
   // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/builder/docker
   name = "distroless"
   sources = [
-    "source.docker.distroless"
+    "source.docker.distroless-debian12_arm64"
   ]
 
   post-processor "docker-tag" {

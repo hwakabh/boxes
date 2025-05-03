@@ -1,0 +1,28 @@
+name: Build Fusion Boxes
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  # build *.vbox.pkr.hcl for amd64 + arm64
+  vbox-aarch64:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Fusion
+        run: brew install virtualbox
+
+      - name: Test vboxmanage
+        run: vboxmanage -v
+
+
+  vbox-x86_64:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4

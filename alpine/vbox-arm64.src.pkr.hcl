@@ -18,7 +18,7 @@ source "virtualbox-iso" "alpine_arm64" {
   gfx_vram_size        = 128
 
   // After VM starting
-  # headless  = true
+  headless  = true
   boot_wait = "15s"
   boot_command = [
     "root<enter><wait>",

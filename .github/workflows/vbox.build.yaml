@@ -24,9 +24,12 @@ jobs:
             sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" |
             sudo tee /etc/apt/sources.list.d/virtualbox.list
-          sudo apt-get update && sudo apt-get upgrade -y
+          sudo apt-get update
           sudo apt-get install -y VirtualBox-7.0
-          vboxmanage -v
+
+          ls -al /usr/bin/
+
+          which vboxmanage
 
       - name: Install extensions
         run: |

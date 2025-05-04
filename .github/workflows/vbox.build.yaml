@@ -26,7 +26,7 @@ jobs:
 
       - name: Install extensions
         run: |
-          echo 'y\n' | vboxmanage extpack install Oracle_VirtualBox_Extension_Pack-7.1.8-168469.vbox-extpack
+          echo 'y\n' | sudo vboxmanage extpack install Oracle_VirtualBox_Extension_Pack-7.1.8-168469.vbox-extpack
 
       - name: Setup packer
         uses: hashicorp/setup-packer@main

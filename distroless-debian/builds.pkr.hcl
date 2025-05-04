@@ -1,6 +1,6 @@
 packer {
   required_plugins {
-    // builder/docker
+    // builder/docker, post-processor/docker-import, post-processor/docker-push
     docker = {
       version = ">= 1.1.0"
       source  = "github.com/hashicorp/docker"
@@ -14,25 +14,33 @@ packer {
 }
 
 build {
-  // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/builder/docker
   sources = [
     "source.docker.distroless-debian_arm64"
   ]
 
-  post-processor "docker-tag" {
-    // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
-    repository = "ghcr.io/hwakabh/distroless-debian"
-    tags       = ["box-arm64"]
+  post-processors {
+    post-processor "docker-import" {
+      repository = "ghcr.io/hwakabh/distroless-debian"
+      tag        = "box-arm64"
+    }
+    post-processor "docker-push" {
+      login_server   = "ghcr.io"
+      login_username = "hwakabh"
+      login_password = var.GHCR_TOKEN
+    }
   }
 
   post-processors {
+    post-processor "docker-import" {
+      repository = "ghcr.io/hwakabh/distroless-debian"
+      tag        = "box-arm64"
+    }
     post-processor "vagrant" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
-      provider_override = "docker"
-      output            = "distroless_arm64.docker.box"
+      provider_override    = "docker"
+      vagrantfile_template = "./Vagrantfile.pkrtpl"
+      output               = "distroless_arm64.docker.box"
     }
     post-processor "vagrant-registry" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
       client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
       box_tag       = "hwakabh/distroless-debian"
@@ -41,8 +49,7 @@ build {
     }
   }
 
-  // required HCP_PROJECT_ID, HCP_PACKER_CLIENT_ID & HCP_PACKER_CLIENT_SECRET
-  // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
+  // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
   hcp_packer_registry {
     bucket_name = "distroless-debian"
     description = "metadata of builds with distroless-debian by Packer"

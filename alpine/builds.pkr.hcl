@@ -1,7 +1,7 @@
 packer {
   required_version = ">= 1.7.0"
   required_plugins {
-    // builder/docker, post-processor/docker-tag
+    // builder/docker, post-processor/docker-import, post-processor/docker-push
     docker = {
       version = ">= 1.1.0"
       source  = "github.com/hashicorp/docker"
@@ -65,35 +65,35 @@ build {
       box_tag       = "hwakabh/alpine"
       architecture  = "arm64"
       version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      only          = ["vmware-iso.alpine_arm64"]
     }
   }
 
   // For Docker Boxes
   post-processors {
-    post-processor "docker-tag" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
+    post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/alpine"
-      tags       = ["box-arm64"]
+      tag        = "box-arm64"
       only       = ["docker.alpine_arm64"]
     }
-    # post-processor "docker-import" {
-    #   repository = "ghcr.io/hwakabh/alpine"
-    #   tag = "box-arm64"
-    # }
-    # post-processor "docker-push" {
-    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-push
-    #   login          = true
-    #   login_server   = "ghcr.io"
-    #   login_username = "hwakabh"
-    #   login_password = var.GHCR_TOKEN
-    #   only           = ["docker.alpine_arm64"]
-    # }
+    post-processor "docker-push" {
+      login_server   = "ghcr.io"
+      login_username = "hwakabh"
+      login_password = var.GHCR_TOKEN
+      only           = ["docker.alpine_arm64"]
+    }
   }
 
   post-processors {
+    // for avoiding hard-coded image digest in Vagrantfile of boxes, we need to import tar from builder/docker
     // post-proceesor.vagrant.override can be used only in JSON formats,
     // so that we need to add duplicated chains
     // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant#provider-specific-overrides
+    post-processor "docker-import" {
+      repository = "ghcr.io/hwakabh/alpine"
+      tag        = "box-arm64"
+      only       = ["docker.alpine_arm64"]
+    }
     post-processor "vagrant" {
       provider_override = "docker"
       output            = "alpine_arm64.docker.box"
@@ -106,6 +106,7 @@ build {
       box_tag       = "hwakabh/alpine"
       architecture  = "arm64"
       version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      only          = ["docker.alpine_arm64"]
     }
   }
 

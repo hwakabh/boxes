@@ -20,29 +20,27 @@ build {
   ]
 
   post-processors {
-    post-processor "docker-tag" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-tag
+    post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/distroless-debian"
-      tags       = ["box-arm64"]
+      tag        = "box-arm64"
     }
-    # post-processor "docker-import" {
-    #   repository = "ghcr.io/hwakabh/distroless-debian"
-    #   tag = "box-arm64"
-    # }
-    # post-processor "docker-push" {
-    #   // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/post-processor/docker-push
-    #   login          = true
-    #   login_server   = "ghcr.io"
-    #   login_username = "hwakabh"
-    #   login_password = var.GHCR_TOKEN
-    # }
+    post-processor "docker-push" {
+      login_server   = "ghcr.io"
+      login_username = "hwakabh"
+      login_password = var.GHCR_TOKEN
+    }
   }
 
   post-processors {
+    post-processor "docker-import" {
+      repository = "ghcr.io/hwakabh/distroless-debian"
+      tag        = "box-arm64"
+    }
     post-processor "vagrant" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
-      provider_override = "docker"
-      output            = "distroless_arm64.docker.box"
+      provider_override    = "docker"
+      vagrantfile_template = "./Vagrantfile.pkrtpl"
+      output               = "distroless_arm64.docker.box"
     }
     post-processor "vagrant-registry" {
       // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry

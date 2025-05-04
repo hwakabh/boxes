@@ -11,6 +11,11 @@ packer {
       version = "~> 1"
       source  = "github.com/hashicorp/vmware"
     }
+    // builder/virtualbox-iso
+    virtualbox = {
+      version = "~> 1"
+      source  = "github.com/hashicorp/virtualbox"
+    }
     // post-processor/vagrant, post-processor/vagrant-registry
     vagrant = {
       version = "~> 1"
@@ -65,7 +70,7 @@ build {
 build {
   sources = [
     "source.vmware-iso.alpine_arm64",
-    # "source.virtualbox.alpine_arm64",
+    "source.virtualbox-iso.alpine_arm64",
   ]
 
   provisioner "file" {
@@ -90,10 +95,12 @@ build {
 
   post-processors {
     post-processor "vagrant" {
+      only              = ["vmware-iso.alpine_arm64"]
       provider_override = "vmware"
       output            = "alpine_arm64.fusion.box"
     }
     post-processor "vagrant-registry" {
+      only          = ["vmware-iso.alpine_arm64"]
       client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
       box_tag       = "hwakabh/alpine"
@@ -101,4 +108,21 @@ build {
       version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
     }
   }
+
+  post-processors {
+    post-processor "vagrant" {
+      only              = ["virtualbox-iso.alpine_arm64"]
+      provider_override = "virtualbox"
+      output            = "alpine_arm64.vbox.box"
+    }
+    post-processor "vagrant-registry" {
+      only          = ["virtualbox-iso.alpine_arm64"]
+      client_id     = var.VAGRANT_HCP_CLIENT_ID
+      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag       = "hwakabh/alpine"
+      architecture  = "arm64"
+      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+    }
+  }
+
 }

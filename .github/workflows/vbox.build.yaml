@@ -48,7 +48,7 @@ jobs:
           packer validate .
           echo ""
           echo ""
-          PACKER_LOG=1 packer build -only virtualbox-iso.alpine_arm64 .
+          PACKER_LOG=1 sudo packer build -only virtualbox-iso.alpine_arm64 .
 
 
   vbox-x86_64:

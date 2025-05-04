@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 env:
+  PRODUCT_VERSION: "latest"
   FUSION_INSTALLER_FILENAME: "VMware-Fusion-13.6.2-24409261_universal.dmg"
   GDRIVE_API_KEY: ${{ secrets.GDRIVE_API_KEY }}
   GDRIVE_FILE_ID: ${{ secrets.GDRIVE_FILE_ID }}

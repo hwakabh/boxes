@@ -6,9 +6,8 @@ on:
       - 'main'
   workflow_dispatch:
 
-permissions:
-  contents: read
-  packages: write
+env:
+  PRODUCT_VERSION: "latest"
 
 jobs:
   # build *.fusion.pkr.hcl for amd64 + arm64
@@ -42,7 +41,7 @@ jobs:
           HCP_CLIENT_SECRET: ${{ secrets.PACKER_HCP_CLIENT_SECRET }}
           VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
           VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         run: |
           packer validate .
           PACKER_LOG=1 packer build -only docker.${{ matrix.images }}_arm64 .

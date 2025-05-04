@@ -16,5 +16,5 @@ variable "GHCR_TOKEN" {
   type        = string
   sensitive   = true
   description = "GitHub PAT for pushing image"
-  default     = env("GITHUB_PAT")
+  default     = env("GHCR_TOKEN")
 }

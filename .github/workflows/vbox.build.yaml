@@ -6,6 +6,9 @@ on:
       - 'main'
   workflow_dispatch:
 
+env:
+  PRODUCT_VERSION: "latest"
+
 jobs:
   # build *.vbox.pkr.hcl for amd64 + arm64
   vbox-aarch64:

@@ -1,9 +1,10 @@
 name: Build VirtualBox Boxes
 
 on:
-  push:
-    branches:
-      - 'main'
+  # push:
+  #   branches:
+  #     - 'main'
+  pull_request:
   workflow_dispatch:
 
 env:
@@ -20,8 +21,22 @@ jobs:
       - name: Install Fusion
         run: brew install virtualbox
 
-      - name: Test vboxmanage
-        run: vboxmanage -v
+      - name: Setup packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: ${{ env.PRODUCT_VERSION }}
+
+      # For debug
+      - name: Test buildings with packer
+        run: |
+          cd alpine/
+          packer init .
+          echo ""
+          echo ""
+          packer validate .
+          echo ""
+          echo ""
+          PACKER_LOG=1 packer build -only virtualbox-iso.alpine_arm64 .
 
 
   vbox-x86_64:

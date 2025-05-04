@@ -66,7 +66,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-     - name: Download fusion installer
+      - name: Download fusion installer
         run: |
           wget -q -O ${{ env.FUSION_INSTALLER_FILENAME }} "https://www.googleapis.com/drive/v3/files/${{ env.GDRIVE_FILE_ID }}?alt=media&key=${{ env.GDRIVE_API_KEY }}"
           md5 ${{ env.FUSION_INSTALLER_FILENAME }}

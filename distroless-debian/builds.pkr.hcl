@@ -20,8 +20,8 @@ build {
 
   post-processors {
     post-processor "docker-import" {
-      repository = "ghcr.io/hwakabh/distroless-debian"
-      tag        = "box-arm64"
+      repository = "ghcr.io/hwakabh/box/distroless-debian_arm64"
+      tag        = "latest"
     }
     post-processor "docker-push" {
       login          = true
@@ -33,8 +33,8 @@ build {
 
   post-processors {
     post-processor "docker-import" {
-      repository = "ghcr.io/hwakabh/distroless-debian"
-      tag        = "box-arm64"
+      repository = "ghcr.io/hwakabh/box/distroless-debian_arm64"
+      tag        = "latest"
     }
     post-processor "vagrant" {
       provider_override    = "docker"

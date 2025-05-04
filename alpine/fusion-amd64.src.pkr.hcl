@@ -1,21 +1,25 @@
-source "virtualbox-iso" "alpine_arm64" {
-  iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso"
-  iso_checksum = "file:https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso.sha512"
+source "vmware-iso" "alpine_amd64" {
+  // OS source image
+  iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso"
+  iso_checksum = "file:https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso.sha512"
 
   // virtual hardware configurations
-  guest_os_type = "Ubuntu_arm64"
-  firmware      = "efi"
+  guest_os_type = "other-64"
+  version       = "21"
+  vmx_data = {
+    "firmware"         = "efi"
+    "architecture"     = "other-64"
+    "usb_xhci.present" = "TRUE" # for Packer to type text
+  }
 
   // VM Specs
   vm_name              = "alpine-arm64"
   cpus                 = 1
-  memory               = 1024
-  disk_size            = 4096
-  hard_drive_interface = "sata"
-  iso_interface        = "virtio" # for initial boot
-  usb                  = true     # for Packer to type text
-  gfx_controller       = "vmsvga" # for fixing VERR_PGM_RAM_CONFLICT
-  gfx_vram_size        = 128
+  memory               = 2048
+  network_adapter_type = "vmxnet3"
+  disk_adapter_type    = "sata"
+  disk_size            = 4000
+  cdrom_adapter_type   = "sata"
 
   // After VM starting
   headless  = true

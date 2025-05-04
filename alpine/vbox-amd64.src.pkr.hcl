@@ -1,13 +1,13 @@
-source "virtualbox-iso" "alpine_arm64" {
-  iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso"
-  iso_checksum = "file:https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/aarch64/alpine-standard-3.20.6-aarch64.iso.sha512"
+source "virtualbox-iso" "alpine_amd64" {
+  iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso"
+  iso_checksum = "file:https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso.sha512"
 
   // virtual hardware configurations
-  guest_os_type = "Ubuntu_arm64"
+  guest_os_type = "Ubuntu"
   firmware      = "efi"
 
   // VM Specs
-  vm_name              = "alpine-arm64"
+  vm_name              = "alpine-amd64"
   cpus                 = 1
   memory               = 1024
   disk_size            = 4096

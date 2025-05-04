@@ -35,11 +35,11 @@ jobs:
 
       # For debug
       - name: Test buildings with packer
-        env:
-          VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
-          VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # env:
+        #   VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
+        #   VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
+        #   GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd alpine/
           packer init .
@@ -48,7 +48,13 @@ jobs:
           packer validate .
           echo ""
           echo ""
-          PACKER_LOG=1 sudo packer build -only virtualbox-iso.alpine_arm64 .
+          PACKER_LOG=1 sudo -E packer build -only virtualbox-iso.alpine_arm64 .
+          # PACKER_LOG=1 \
+          # VAGRANT_HCP_CLIENT_ID=${{ secrets.VAGRANT_HCP_CLIENT_ID }} \
+          # VAGRANT_HCP_CLIENT_SECRET=${{ secrets.VAGRANT_HCP_CLIENT_SECRET }} \
+          # GHCR_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+          # PACKER_GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+          # sudo packer build -only virtualbox-iso.alpine_arm64 .
 
 
   vbox-x86_64:

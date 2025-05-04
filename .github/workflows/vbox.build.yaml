@@ -13,16 +13,21 @@ env:
 jobs:
   # build *.vbox.pkr.hcl for amd64 + arm64
   vbox-aarch64:
-    runs-on: macos-latest
+    runs-on: ubuntu-24.04-arm #preview
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install VirtualBox
         run: |
-          brew install virtualbox
-          wget -q https://download.virtualbox.org/virtualbox/7.1.8/Oracle_VirtualBox_Extension_Pack-7.1.8-168469.vbox-extpack
-          ls -al
+          wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc |
+            sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" |
+            sudo tee /etc/apt/sources.list.d/virtualbox.list
+          sudo apt-get update
+          sudo apt-get install VirtualBox-7.0
+
+          vboxmanage -v
 
       - name: Install extensions
         run: |
@@ -49,13 +54,6 @@ jobs:
           echo ""
           echo ""
           PACKER_LOG=1 sudo -E packer build -only virtualbox-iso.alpine_arm64 .
-          # PACKER_LOG=1 \
-          # VAGRANT_HCP_CLIENT_ID=${{ secrets.VAGRANT_HCP_CLIENT_ID }} \
-          # VAGRANT_HCP_CLIENT_SECRET=${{ secrets.VAGRANT_HCP_CLIENT_SECRET }} \
-          # GHCR_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-          # PACKER_GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-          # sudo packer build -only virtualbox-iso.alpine_arm64 .
-
 
   vbox-x86_64:
     runs-on: macos-13

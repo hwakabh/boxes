@@ -18,6 +18,51 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # - name: Install VirtualBox
+      #   run: |
+      #     wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc |
+      #       sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
+      #     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" |
+      #       sudo tee /etc/apt/sources.list.d/virtualbox.list
+      #     sudo apt-get update
+      #     sudo apt-get install -y VirtualBox-7.0
+
+      #     ls -al /usr/bin/
+
+      #     which vboxmanage
+
+      # - name: Install extensions
+      #   run: |
+      #     echo 'y\n' | sudo vboxmanage extpack install Oracle_VirtualBox_Extension_Pack-7.1.8-168469.vbox-extpack
+
+      # - name: Setup packer
+      #   uses: hashicorp/setup-packer@main
+      #   with:
+      #     version: ${{ env.PRODUCT_VERSION }}
+
+      # # For debug
+      # - name: Test buildings with packer
+      #   env:
+      #     VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
+      #     VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
+      #     GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     cd alpine/
+      #     packer init .
+      #     echo ""
+      #     echo ""
+      #     packer validate .
+      #     echo ""
+      #     echo ""
+      #     PACKER_LOG=1 sudo -E packer build -only virtualbox-iso.alpine_arm64 .
+
+  vbox-x86_64:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install VirtualBox
         run: |
           wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc |
@@ -55,10 +100,4 @@ jobs:
           packer validate .
           echo ""
           echo ""
-          PACKER_LOG=1 sudo -E packer build -only virtualbox-iso.alpine_arm64 .
-
-  vbox-x86_64:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+          PACKER_LOG=1 sudo -E packer build -only virtualbox-iso.alpine_amd64 .

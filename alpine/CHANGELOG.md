@@ -1,5 +1,42 @@
 # Changelog
 
+## [0.2.1](https://github.com/hwakabh/boxes/compare/alpine-v0.2.0...alpine-v0.2.1) (2025-05-04)
+
+
+### Bug Fixes
+
+* post-processor/docker-push with authentication ([91dd639](https://github.com/hwakabh/boxes/commit/91dd639ecddb9dc7501e324f4d12c8986fbcb6c7))
+
+
+### Miscellaneous Chores
+
+* added login_server for authenticate. ([aee68f0](https://github.com/hwakabh/boxes/commit/aee68f054a852a7bf29dd06d170b02aa7fe6d080))
+* added tags for each docker-box builds. ([060c8b4](https://github.com/hwakabh/boxes/commit/060c8b4b60ef4e81c1b5caf268e6ed18c21605e6))
+* **alpine:** added variables for pushing metadata/box for registry. ([ba91e40](https://github.com/hwakabh/boxes/commit/ba91e4039aa1e8f9212bec34ba95a3393946a66d))
+* cleaned up codes and removed names of builds. ([8c43610](https://github.com/hwakabh/boxes/commit/8c4361045418e261389e6d752a0f7b31d175b9d1))
+* commented out implementations. ([cf63c37](https://github.com/hwakabh/boxes/commit/cf63c379b106a9da2130bb4963b1f6ef65979e46))
+* enabled login=true in post-processor/docker-push. ([13b24fa](https://github.com/hwakabh/boxes/commit/13b24fa5452fc915f02dc5fbc14d9c0683fd8f45))
+* fixed conflicts. ([555ed9d](https://github.com/hwakabh/boxes/commit/555ed9da5c8ffa49c79685a6bbe1b0ae6494e100))
+* fixed docker.cmd in Vagrantfile using templates. ([63c4be9](https://github.com/hwakabh/boxes/commit/63c4be959a0a30f6ce8d4118fc793c6dcc97a6d8))
+* replaced post-processor for docker boxes. ([f634233](https://github.com/hwakabh/boxes/commit/f63423379783a6ec15dd18058a2e65094ccf85a9))
+* run formats. ([66afbe3](https://github.com/hwakabh/boxes/commit/66afbe31386a4d8db551dc2dd5fa648d8f2ba8b4))
+* run formats. ([547fe6e](https://github.com/hwakabh/boxes/commit/547fe6e4ebf0978b49110d8c388c7b92a636d24a))
+* run formats. ([53a99d1](https://github.com/hwakabh/boxes/commit/53a99d14518480aa19955bbdf44ba7d8d9919d07))
+
+
+### Build System
+
+* **box:** fixed issue on hard-coded digest in Vagrantfile. ([fe14cf1](https://github.com/hwakabh/boxes/commit/fe14cf132aae9fe023e620888d6a52eee7d41986))
+
+
+### Continuous Integration
+
+* added post-processor/docker-push and removed commit=true in builder/docker. ([4372783](https://github.com/hwakabh/boxes/commit/437278330f5343928b4c13e1167314392f465c35))
+* enhancements for box publishing to registry ([db02e4e](https://github.com/hwakabh/boxes/commit/db02e4ec70ea265a8f1b7ceba895d23e7ae4ec0e))
+* envars and secrets for packer builds ([2ad84aa](https://github.com/hwakabh/boxes/commit/2ad84aae61142f61ae6c88f5db523dfa47baf378))
+* registry integrations for docker-boxes ([3840460](https://github.com/hwakabh/boxes/commit/3840460c8ae61213518c736cfc2ea1f048d56777))
+* replaced github_token with PAT from action secrets. ([e808252](https://github.com/hwakabh/boxes/commit/e8082522508600c54b7cfa6caf78777c93e25325))
+
 ## [0.2.0](https://github.com/hwakabh/boxes/compare/alpine-v0.1.0...alpine-v0.2.0) (2025-05-03)
 
 

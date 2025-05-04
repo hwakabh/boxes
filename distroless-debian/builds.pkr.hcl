@@ -24,7 +24,7 @@ build {
       tag        = "box-arm64"
     }
     post-processor "docker-push" {
-      login = true
+      login          = true
       login_username = "hwakabh"
       login_password = var.GHCR_TOKEN
     }

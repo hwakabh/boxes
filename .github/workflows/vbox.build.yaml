@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Fusion
+      - name: Install VirtualBox
         run: brew install virtualbox
 
       - name: Setup packer
@@ -32,6 +32,7 @@ jobs:
           VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
           VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd alpine/
           packer init .

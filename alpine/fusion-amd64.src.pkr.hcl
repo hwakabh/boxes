@@ -1,6 +1,6 @@
 source "vmware-iso" "alpine_amd64" {
   // OS source image
-  iso_url = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso"
+  iso_url      = "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso"
   iso_checksum = "file:https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.6-x86_64.iso.sha512"
 
   // virtual hardware configurations

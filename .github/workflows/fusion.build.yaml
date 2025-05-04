@@ -60,7 +60,7 @@ jobs:
           PACKER_LOG=1 packer build -only vmware-iso.alpine_arm64 .
 
   # for amd64 builds
-  fusion-x86_64:
+  fusion-x86-64:
     runs-on: macos-13
     steps:
       - name: Checkout

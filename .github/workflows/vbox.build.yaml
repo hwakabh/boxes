@@ -53,7 +53,7 @@ jobs:
       #     echo ""
       #     PACKER_LOG=1 sudo -E packer build -only virtualbox-iso.alpine_arm64 .
 
-  vbox-x86_64:
+  vbox-x86-64:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout

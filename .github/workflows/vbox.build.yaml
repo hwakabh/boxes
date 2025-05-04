@@ -19,7 +19,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install VirtualBox
-        run: brew install virtualbox
+        run: |
+          brew install virtualbox
+          sudo kmutil load -b org.virtualbox.kext.VBoxDrv
 
       - name: Setup packer
         uses: hashicorp/setup-packer@main

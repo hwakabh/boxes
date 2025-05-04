@@ -22,6 +22,10 @@ jobs:
         run: |
           brew install virtualbox
           wget -q https://download.virtualbox.org/virtualbox/7.1.8/Oracle_VirtualBox_Extension_Pack-7.1.8-168469.vbox-extpack
+          ls -al
+
+      - name: Install extensions
+        run: |
           echo 'y\n' | vboxmanage extpack install Oracle_VirtualBox_Extension_Pack-7.1.8-168469.vbox-extpack
 
       - name: Setup packer

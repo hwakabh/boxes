@@ -19,24 +19,21 @@ packer {
   }
 }
 
+// since we use multiple-builds, we could not use `hcp_packer_registry` block
 build {
-  name = "container"
   sources = [
     "source.docker.alpine_arm64"
   ]
 
-  // For Docker Boxes
   post-processors {
     post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/alpine"
       tag        = "box-arm64"
-      only       = ["docker.alpine_arm64"]
     }
     post-processor "docker-push" {
       login_server   = "ghcr.io"
       login_username = "hwakabh"
       login_password = var.GHCR_TOKEN
-      only           = ["docker.alpine_arm64"]
     }
   }
 
@@ -48,48 +45,39 @@ build {
     post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/alpine"
       tag        = "box-arm64"
-      only       = ["docker.alpine_arm64"]
     }
     post-processor "vagrant" {
-      provider_override = "docker"
+      provider_override    = "docker"
       vagrantfile_template = "./Vagrantfile.pkrtpl"
-      output            = "alpine_arm64.docker.box"
-      only              = ["docker.alpine_arm64"]
+      output               = "alpine_arm64.docker.box"
     }
     post-processor "vagrant-registry" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
       client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
       box_tag       = "hwakabh/alpine"
       architecture  = "arm64"
       version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
-      only          = ["docker.alpine_arm64"]
     }
   }
 }
 
 build {
-  name = "vm"
   sources = [
     "source.vmware-iso.alpine_arm64",
     # "source.virtualbox.alpine_arm64",
   ]
 
-  // For Fusion Boxes
   provisioner "file" {
     source      = "../.share/vagrant.pub"
     destination = "/tmp/vagrant.pub"
-    only        = ["vmware-iso.alpine_arm64"]
   }
   provisioner "shell" {
     script = "./scripts/setup.sh"
-    only   = ["vmware-iso.alpine_arm64"]
   }
 
   provisioner "file" {
     source      = "./scripts/answerfile"
     destination = "/tmp/answerfile"
-    only        = ["vmware-iso.alpine_arm64"]
   }
   provisioner "shell" {
     inline = [
@@ -97,38 +85,19 @@ build {
       "echo 'password\npassword\ny\n' | setup-alpine -f /tmp/answerfile",
       "reboot"
     ]
-    only = ["vmware-iso.alpine_arm64"]
   }
 
   post-processors {
     post-processor "vagrant" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
       provider_override = "vmware"
       output            = "alpine_arm64.fusion.box"
-      only              = ["vmware-iso.alpine_arm64"]
     }
     post-processor "vagrant-registry" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
       client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
       box_tag       = "hwakabh/alpine"
       architecture  = "arm64"
       version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
-      only          = ["vmware-iso.alpine_arm64"]
     }
   }
-  # // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
-  # // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
-  # hcp_packer_registry {
-  #   bucket_name = "alpine"
-  #   description = "metadata of builds with alpine by Packer"
-  #   bucket_labels = {
-  #     "owner"    = "hwakabh"
-  #     "build_on" = "github-action"
-  #   }
-  #   build_labels = {
-  #     "build-time"   = timestamp()
-  #     "build-source" = basename(path.cwd)
-  #   }
-  # }
 }

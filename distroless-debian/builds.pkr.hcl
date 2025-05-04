@@ -1,6 +1,6 @@
 packer {
   required_plugins {
-    // builder/docker
+    // builder/docker, post-processor/docker-import, post-processor/docker-push
     docker = {
       version = ">= 1.1.0"
       source  = "github.com/hashicorp/docker"
@@ -14,7 +14,6 @@ packer {
 }
 
 build {
-  // https://developer.hashicorp.com/packer/integrations/hashicorp/docker/latest/components/builder/docker
   sources = [
     "source.docker.distroless-debian_arm64"
   ]
@@ -37,13 +36,11 @@ build {
       tag        = "box-arm64"
     }
     post-processor "vagrant" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant
       provider_override    = "docker"
       vagrantfile_template = "./Vagrantfile.pkrtpl"
       output               = "distroless_arm64.docker.box"
     }
     post-processor "vagrant-registry" {
-      // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant-registry
       client_id     = var.VAGRANT_HCP_CLIENT_ID
       client_secret = var.VAGRANT_HCP_CLIENT_SECRET
       box_tag       = "hwakabh/distroless-debian"
@@ -52,18 +49,17 @@ build {
     }
   }
 
-  # // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
-  # // https://developer.hashicorp.com/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata
-  # hcp_packer_registry {
-  #   bucket_name = "distroless-debian"
-  #   description = "metadata of builds with distroless-debian by Packer"
-  #   bucket_labels = {
-  #     "owner"    = "hwakabh"
-  #     "build_on" = "github-action"
-  #   }
-  #   build_labels = {
-  #     "build-time"   = timestamp()
-  #     "build-source" = basename(path.cwd)
-  #   }
-  # }
+  // required HCP_PROJECT_ID, HCP_CLIENT_ID & HCP_CLIENT_SECRET
+  hcp_packer_registry {
+    bucket_name = "distroless-debian"
+    description = "metadata of builds with distroless-debian by Packer"
+    bucket_labels = {
+      "owner"    = "hwakabh"
+      "build_on" = "github-action"
+    }
+    build_labels = {
+      "build-time"   = timestamp()
+      "build-source" = basename(path.cwd)
+    }
+  }
 }

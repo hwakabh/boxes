@@ -27,8 +27,8 @@ build {
 
   post-processors {
     post-processor "docker-import" {
-      repository = "ghcr.io/hwakabh/alpine"
-      tag        = "box-arm64"
+      repository = "ghcr.io/hwakabh/box/alpine_arm64"
+      tag        = "latest"
     }
     post-processor "docker-push" {
       login          = true
@@ -44,8 +44,8 @@ build {
     // so that we need to add duplicated chains
     // https://developer.hashicorp.com/packer/integrations/hashicorp/vagrant/latest/components/post-processor/vagrant#provider-specific-overrides
     post-processor "docker-import" {
-      repository = "ghcr.io/hwakabh/alpine"
-      tag        = "box-arm64"
+      repository = "ghcr.io/hwakabh/box/alpine_arm64"
+      tag        = "latest"
     }
     post-processor "vagrant" {
       provider_override    = "docker"

@@ -28,6 +28,10 @@ jobs:
 
       # For debug
       - name: Test buildings with packer
+        env:
+          VAGRANT_HCP_CLIENT_ID: ${{ secrets.VAGRANT_HCP_CLIENT_ID }}
+          VAGRANT_HCP_CLIENT_SECRET: ${{ secrets.VAGRANT_HCP_CLIENT_SECRET }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd alpine/
           packer init .

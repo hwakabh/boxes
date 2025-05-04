@@ -18,6 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      ### Seems no VirtualBox's deb package for aarch64
       # - name: Install VirtualBox
       #   run: |
       #     wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc |
@@ -26,10 +27,6 @@ jobs:
       #       sudo tee /etc/apt/sources.list.d/virtualbox.list
       #     sudo apt-get update
       #     sudo apt-get install -y VirtualBox-7.0
-
-      #     ls -al /usr/bin/
-
-      #     which vboxmanage
 
       # - name: Install extensions
       #   run: |

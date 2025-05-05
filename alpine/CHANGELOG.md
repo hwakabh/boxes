@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.3.0](https://github.com/hwakabh/boxes/compare/alpine-v0.2.1...alpine-v0.3.0) (2025-05-05)
+
+
+### Features
+
+* added builder/virtualbox-iso ([fbe4de5](https://github.com/hwakabh/boxes/commit/fbe4de5aa1ceac07215be83fbbb68b008abffaa4))
+* added packer sources with builder/virtualbox-iso. ([f15baca](https://github.com/hwakabh/boxes/commit/f15bacacd9c53169d2b080189f8205ede8452a8f))
+
+
+### Miscellaneous Chores
+
+* added codes for fusion/vbox x86_64. ([81ac725](https://github.com/hwakabh/boxes/commit/81ac72555ea056af06663a09eb96a6538058f3f4))
+* added x86_64 builds for vbox. ([3dd8af4](https://github.com/hwakabh/boxes/commit/3dd8af4071250839048c44b80fb9b512482451d9))
+* renamed docker-image name in ghcr.io. ([7fbed4a](https://github.com/hwakabh/boxes/commit/7fbed4a58ead11c44cc3f9bab3ae6330b1fc9cb8))
+* renamed docker-image name in ghcr.io. ([bf81c09](https://github.com/hwakabh/boxes/commit/bf81c097de1f70c25f8a261ce470b7077360cda5))
+* run formats. ([144246f](https://github.com/hwakabh/boxes/commit/144246f8b492fe0a5d9006d8ccef55cff55098e9))
+
+
+### Code Refactoring
+
+* moved builds of vmware-iso and virtualbox-iso. ([4541652](https://github.com/hwakabh/boxes/commit/454165234af80b0f69920d0a2727d2c0e9055d8e))
+* moved builds of vmware-iso and virtualbox-iso. ([8cf496b](https://github.com/hwakabh/boxes/commit/8cf496ba37a3f277dcc9b92662e0fca2ebeb377d))
+
+
+### Continuous Integration
+
+* fixed error with opening gui. ([4079267](https://github.com/hwakabh/boxes/commit/407926763e97fba6758a5a4d7957676d89dc33a2))
+
 ## [0.2.1](https://github.com/hwakabh/boxes/compare/alpine-v0.2.0...alpine-v0.2.1) (2025-05-04)
 
 

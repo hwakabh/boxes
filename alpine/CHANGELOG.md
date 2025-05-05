@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.1](https://github.com/hwakabh/boxes/compare/alpine-v0.3.0...alpine-v0.3.1) (2025-05-05)
+
+
+### Miscellaneous Chores
+
+* added CPU arch for post-processor/docker-{import,push}. ([a2f0e9e](https://github.com/hwakabh/boxes/commit/a2f0e9e18b679bfa3282bd9a8cd2badea8aa7283))
+* removed --platform flags from post-processor/docker-push. ([0e7e70f](https://github.com/hwakabh/boxes/commit/0e7e70f382bdcb35da0ad2a216f3a928ae8413ba))
+
+
+### Continuous Integration
+
+* added CPU arch for docker plugins ([3aab19b](https://github.com/hwakabh/boxes/commit/3aab19b4a265a67c354119914bd970140a4379bd))
+
 ## [0.3.0](https://github.com/hwakabh/boxes/compare/alpine-v0.2.1...alpine-v0.3.0) (2025-05-05)
 
 

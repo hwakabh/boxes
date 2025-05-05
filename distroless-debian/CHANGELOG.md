@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.2](https://github.com/hwakabh/boxes/compare/distroless-debian-v0.2.1...distroless-debian-v0.2.2) (2025-05-05)
+
+
+### Miscellaneous Chores
+
+* **distroless-debian:** updated image tag for publishing. ([8db8854](https://github.com/hwakabh/boxes/commit/8db8854caf9d14c3451b692e08f52da0809b0fee))
+* **distroless-debian:** updated image tag for publishing. ([d2e0c6f](https://github.com/hwakabh/boxes/commit/d2e0c6f78752f1a5243f1bee461bfa0861e4a111))
+* renamed docker-image name in ghcr.io. ([7fbed4a](https://github.com/hwakabh/boxes/commit/7fbed4a58ead11c44cc3f9bab3ae6330b1fc9cb8))
+* renamed docker-image name in ghcr.io. ([bf81c09](https://github.com/hwakabh/boxes/commit/bf81c097de1f70c25f8a261ce470b7077360cda5))
+
 ## [0.2.1](https://github.com/hwakabh/boxes/compare/distroless-debian-v0.2.0...distroless-debian-v0.2.1) (2025-05-04)
 
 

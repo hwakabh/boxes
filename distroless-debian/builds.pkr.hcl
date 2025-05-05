@@ -29,7 +29,6 @@ build {
       login_server   = "ghcr.io"
       login_username = "hwakabh"
       login_password = var.GHCR_TOKEN
-      platform       = "linux/arm64"
     }
   }
 

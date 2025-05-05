@@ -22,12 +22,14 @@ build {
     post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/box/distroless-debian"
       tag        = "arm64-latest"
+      platform   = "linux/arm64"
     }
     post-processor "docker-push" {
       login          = true
       login_server   = "ghcr.io"
       login_username = "hwakabh"
       login_password = var.GHCR_TOKEN
+      platform       = "linux/arm64"
     }
   }
 
@@ -35,6 +37,7 @@ build {
     post-processor "docker-import" {
       repository = "ghcr.io/hwakabh/box/distroless-debian"
       tag        = "arm64-latest"
+      platform   = "linux/arm64"
     }
     post-processor "vagrant" {
       provider_override    = "docker"

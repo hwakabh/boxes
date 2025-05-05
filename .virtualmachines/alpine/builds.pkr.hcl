@@ -55,12 +55,13 @@ build {
       output            = "alpine_arm64.fusion.box"
     }
     post-processor "vagrant-registry" {
-      only          = ["vmware-iso.alpine_arm64"]
-      client_id     = var.VAGRANT_HCP_CLIENT_ID
-      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
-      box_tag       = "hwakabh/alpine"
-      architecture  = "arm64"
-      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      only                = ["vmware-iso.alpine_arm64"]
+      client_id           = var.VAGRANT_HCP_CLIENT_ID
+      client_secret       = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag             = join("/", [var.VAGRANT_REGISTRY_NAME, "alpine"])
+      architecture        = "arm64"
+      version             = formatdate("YYYYMMDD-hhmmss", timestamp())
+      keep_input_artifact = false
     }
   }
 
@@ -71,12 +72,13 @@ build {
       output            = "alpine_amd64.fusion.box"
     }
     post-processor "vagrant-registry" {
-      only          = ["vmware-iso.alpine_amd64"]
-      client_id     = var.VAGRANT_HCP_CLIENT_ID
-      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
-      box_tag       = "hwakabh/alpine"
-      architecture  = "amd64"
-      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      only                = ["vmware-iso.alpine_amd64"]
+      client_id           = var.VAGRANT_HCP_CLIENT_ID
+      client_secret       = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag             = join("/", [var.VAGRANT_REGISTRY_NAME, "alpine"])
+      architecture        = "amd64"
+      version             = formatdate("YYYYMMDD-hhmmss", timestamp())
+      keep_input_artifact = false
     }
   }
 
@@ -87,12 +89,13 @@ build {
       output            = "alpine_arm64.vbox.box"
     }
     post-processor "vagrant-registry" {
-      only          = ["virtualbox-iso.alpine_arm64"]
-      client_id     = var.VAGRANT_HCP_CLIENT_ID
-      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
-      box_tag       = "hwakabh/alpine"
-      architecture  = "arm64"
-      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      only                = ["virtualbox-iso.alpine_arm64"]
+      client_id           = var.VAGRANT_HCP_CLIENT_ID
+      client_secret       = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag             = join("/", [var.VAGRANT_REGISTRY_NAME, "alpine"])
+      architecture        = "arm64"
+      version             = formatdate("YYYYMMDD-hhmmss", timestamp())
+      keep_input_artifact = false
     }
   }
 
@@ -103,12 +106,13 @@ build {
       output            = "alpine_amd64.vbox.box"
     }
     post-processor "vagrant-registry" {
-      only          = ["virtualbox-iso.alpine_amd64"]
-      client_id     = var.VAGRANT_HCP_CLIENT_ID
-      client_secret = var.VAGRANT_HCP_CLIENT_SECRET
-      box_tag       = "hwakabh/alpine"
-      architecture  = "amd64"
-      version       = lookup(jsondecode(file("../.release-please-manifest.json")), "alpine", "0.0.1")
+      only                = ["virtualbox-iso.alpine_amd64"]
+      client_id           = var.VAGRANT_HCP_CLIENT_ID
+      client_secret       = var.VAGRANT_HCP_CLIENT_SECRET
+      box_tag             = join("/", [var.VAGRANT_REGISTRY_NAME, "alpine"])
+      architecture        = "amd64"
+      version             = formatdate("YYYYMMDD-hhmmss", timestamp())
+      keep_input_artifact = false
     }
   }
 

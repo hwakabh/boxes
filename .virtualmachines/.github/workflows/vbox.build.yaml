@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-24.04-arm #preview
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       ### Seems no VirtualBox's deb package for aarch64
       # - name: Install VirtualBox
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install VirtualBox
         run: |

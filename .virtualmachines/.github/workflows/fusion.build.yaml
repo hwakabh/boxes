@@ -61,7 +61,7 @@ jobs:
 
   # for amd64 builds
   fusion-x86-64:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Checkout
         uses: actions/checkout@v6
